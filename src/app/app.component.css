@@ -1,0 +1,40 @@
+
+
+mat-toolbar {
+  padding: 2px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+#navbar_left {
+  display: flex;
+}
+
+#navbar_championships, #new_championship_button {
+  display: inline-block;
+}
+
+#new_champ_button {
+  height: 30px;
+  line-height: 30px;
+  min-width: 30px !important;
+  border: 2px solid white;
+  border-radius: 100%;
+  font-size: 25px;
+  padding: 0;
+  margin: 5px;
+}
+
+.champ_button {
+  margin: 5px;
+  height: 30px;
+  line-height: 30px;
+  border: 0px solid black;
+  border-radius: 0px;
+  font-size: 20px;
+}
+
