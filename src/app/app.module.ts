@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   declarations: [
     AppComponent,
     ChampionshipComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +41,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NO_ERRORS_SCHEMA
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
