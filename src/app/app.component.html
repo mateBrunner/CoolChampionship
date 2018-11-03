@@ -1,8 +1,9 @@
+<!-- navbar -->
 <mat-toolbar color="primary">
-
   <div id="navbar_left">
     <div id="navbar_championships">
-      <button mat-button class="champ_button" *ngFor="let champ of actualChampionships">{{ champ }}</button>
+      <button mat-button class="champ_button" *ngFor="let champ of actualChampionships"
+      routerLink="/championship/{{ champ.id }}">{{ champ.name }}</button>
     </div>
     <button mat-button id="new_champ_button" (click)="open(new_champ_modal)">+</button>
   </div>
@@ -10,22 +11,7 @@
   <div id="navbar_right">
     <button mat-button>Archive</button>
   </div>
-
 </mat-toolbar>
-
-<ng-template #new_champ_modal let-modal>
-  <div class="modal-header">
-    <h6 class="modal-title">Create new championsip</h6>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <mat-form-field>
-      <input #name type="text" matInput placeholder="Name" [(ngModel)]="newChampName" (keydown.enter)="modal.dismiss('Cross click');createChampionship()">
-    </mat-form-field>
-  </div>
-</ng-template>
 
 
 
@@ -38,4 +24,28 @@
 
 
 <router-outlet></router-outlet>
+
+
+<!-- new championship name modal -->
+<ng-template #new_champ_modal let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">Create new championsip</h6>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form #newChampNameForm="ngForm">
+      <div>
+        <input #name="ngModel" required type="text" name="name" [(ngModel)]="newChampName" autocomplete="off"
+               [class.is-invalid]="!isNewChampNameValid" class="form-control" (ngModelChange)="checkNewChampName(name.value)">
+      </div>
+      </form>
+    <button [(disabled)]="!isNewChampNameValid" type="submit" class="btn btn-success" (click)="createChampionship();modal.dismiss()">
+      Create
+    </button>
+  </div>
+</ng-template>
+
+
 
