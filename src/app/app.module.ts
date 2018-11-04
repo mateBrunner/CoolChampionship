@@ -8,8 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule, NgbModalModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatSliderModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material';
+import { InProgressChampionshipComponent } from './in-progress-championship/in-progress-championship.component';
+import { NewChampionshipComponent } from './new-championship/new-championship.component';
+import { PlayersService } from './players.service';
 
 
 @NgModule({
@@ -17,6 +21,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppComponent,
     ChampionshipComponent,
     ProfileComponent,
+    InProgressChampionshipComponent,
+    NewChampionshipComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +33,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTableModule,
+    MatSliderModule,
     NgbModule,
     NgbModalModule,
     FormsModule
@@ -35,12 +43,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NgbModalModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTableModule,
     FormsModule
   ],
   schemas: [
     NO_ERRORS_SCHEMA
   ],
-  providers: [],
+  providers: [PlayersService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

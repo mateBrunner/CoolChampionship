@@ -9,8 +9,11 @@ import {ActivatedRoute} from '@angular/router';
 export class ChampionshipComponent implements OnInit {
 
   public id: string;
+  public status: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+    this.status = 'new';
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 
 
 @Component({
@@ -9,17 +10,29 @@ import {FormBuilder} from '@angular/forms';
   styleUrls: ['./app.component.css'],
   providers: [FormBuilder]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'CoolChampionship';
 
   public actualChampionships: ChampionshipData[] = [];
   public isNewChampNameValid = false;
   public newChampName: string;
+  public selectedId: number;
 
-  constructor(private modalService: NgbModal) {
-    this.actualChampionships.push(new ChampionshipData('test1', 1));
-    this.actualChampionships.push(new ChampionshipData('test2', 2));
-    this.actualChampionships.push(new ChampionshipData('test3', 4));
+  constructor(private modalService: NgbModal, private route: ActivatedRoute,
+              private router: Router) {
+    this.actualChampionships.push(new ChampionshipData(1, 'test1'));
+    this.actualChampionships.push(new ChampionshipData(2, 'test2'));
+    this.actualChampionships.push(new ChampionshipData(3, 'test3'));
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe(val => {
+      if (val instanceof RoutesRecognized && val.state.root.firstChild !== null) {
+        if (val.state.root.firstChild.url[0]['path'] === 'championship') {
+          this.selectedId = val.state.root.firstChild.params['id'];
+        }
+      }
+    });
   }
 
   open(content) {
@@ -27,7 +40,7 @@ export class AppComponent {
   }
 
   createChampionship() {
-    this.actualChampionships.push(new ChampionshipData(this.newChampName, 5));
+    this.actualChampionships.push(new ChampionshipData(5, this.newChampName));
     this.newChampName = '';
   }
 
@@ -43,11 +56,10 @@ export class AppComponent {
 }
 
 export class ChampionshipData {
-  name: String;
-  id: number;
 
-  constructor(name: String, id: number) {
-    this.name = name;
-    this.id = id;
-  }
+  constructor(
+    public id: number,
+    public name: string
+  ) {}
+
 }

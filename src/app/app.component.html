@@ -1,8 +1,10 @@
-<!-- navbar -->
+<div class="container">
+
+  <!-- navbar -->
 <mat-toolbar color="primary">
   <div id="navbar_left">
     <div id="navbar_championships">
-      <button mat-button class="champ_button" *ngFor="let champ of actualChampionships"
+      <button mat-button class="champ_button" [class.is-selected]="champ.id == selectedId" *ngFor="let champ of actualChampionships"
       routerLink="/championship/{{ champ.id }}">{{ champ.name }}</button>
     </div>
     <button mat-button id="new_champ_button" (click)="open(new_champ_modal)">+</button>
@@ -12,18 +14,12 @@
     <button mat-button>Archive</button>
   </div>
 </mat-toolbar>
-
-
-
-<a routerLink="/championship/1">bajnokság 1</a>
-<a routerLink="/championship/2">bajnokság 2</a>
-<a routerLink="/championship/3">bajnokság 3</a>
-<a routerLink="/profile/1">profil 1</a>
-<a routerLink="/profile/2">profil 2</a>
-<a routerLink="/profile/3">profil 3</a>
-
+  <div class="placeholder"></div>
 
 <router-outlet></router-outlet>
+
+
+</div>
 
 
 <!-- new championship name modal -->
@@ -46,6 +42,4 @@
     </button>
   </div>
 </ng-template>
-
-
 
