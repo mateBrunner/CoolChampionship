@@ -10,6 +10,7 @@ export class ChampionshipComponent implements OnInit {
 
   public id: string;
   public status: string;
+  public championship: ChampionshipDetails;
 
   constructor(private route: ActivatedRoute) {
     this.status = 'new';
@@ -18,7 +19,20 @@ export class ChampionshipComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.championship = new ChampionshipDetails(4, 'hello', 'big-round', 2, 6);
     });
   }
+
+}
+
+class ChampionshipDetails {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public format?: string,
+    public numberOfMatches?: number,
+    public sizeOfPlayoff?: number
+  ) {}
 
 }

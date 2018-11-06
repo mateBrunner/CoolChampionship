@@ -45,12 +45,12 @@ export class AppComponent implements OnInit {
   }
 
   checkNewChampName(value) {
-    if (this.actualChampionships.indexOf(value) !== -1) {
-      this.isNewChampNameValid = false;
-    } else {
-      this.isNewChampNameValid = true;
+    this.isNewChampNameValid = true;
+    for (const champ of this.actualChampionships) {
+      if (value === champ.name) {
+        this.isNewChampNameValid = false;
+      }
     }
-    console.log(this.isNewChampNameValid);
   }
 
 }
@@ -61,5 +61,9 @@ export class ChampionshipData {
     public id: number,
     public name: string
   ) {}
+
+  getName() {
+    return this.name;
+  }
 
 }

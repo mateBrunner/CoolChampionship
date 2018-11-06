@@ -34,10 +34,10 @@
       <form #newChampNameForm="ngForm">
       <div>
         <input #name="ngModel" required type="text" name="name" [(ngModel)]="newChampName" autocomplete="off"
-               [class.is-invalid]="!isNewChampNameValid" class="form-control" (ngModelChange)="checkNewChampName(name.value)">
+               [class.is-invalid]="!isNewChampNameValid || name.invalid" class="form-control" (ngModelChange)="checkNewChampName(name.value)">
       </div>
       </form>
-    <button [(disabled)]="!isNewChampNameValid" type="submit" class="btn btn-success" (click)="createChampionship();modal.dismiss()">
+    <button [(disabled)]="!isNewChampNameValid || name.invalid" type="submit" class="btn btn-success" (click)="createChampionship();modal.dismiss()">
       Create
     </button>
   </div>

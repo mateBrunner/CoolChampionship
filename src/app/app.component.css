@@ -52,5 +52,6 @@ mat-toolbar {
 }
 
 .is-selected {
-  background-color: orange !important;
+  background-color: #dfe1fb !important;
+  color: black;
 }
