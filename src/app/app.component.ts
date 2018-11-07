@@ -14,8 +14,6 @@ export class AppComponent implements OnInit {
   title = 'CoolChampionship';
 
   public actualChampionships: ChampionshipData[] = [];
-  public isNewChampNameValid = false;
-  public newChampName: string;
   public selectedId: number;
 
   public newChampModalForm: FormGroup;
@@ -48,7 +46,7 @@ export class AppComponent implements OnInit {
 
   createChampionship() {
     this.actualChampionships.push(new ChampionshipData(this.actualChampionships.length + 1, this.newChampModalForm.get('newChampName').value));
-    this.newChampName = '';
+    this.newChampModalForm.reset();
   }
 
   checkNewChampName(control: FormControl): {[s: string]: boolean} {

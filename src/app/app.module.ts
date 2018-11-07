@@ -7,13 +7,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule, NgbModalModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatSliderModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material';
 import { InProgressChampionshipComponent } from './in-progress-championship/in-progress-championship.component';
 import { NewChampionshipComponent } from './new-championship/new-championship.component';
 import { PlayersService } from './players.service';
+import { PlayerFilterPipe } from './player-filter.pipe';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PlayersService } from './players.service';
     ProfileComponent,
     InProgressChampionshipComponent,
     NewChampionshipComponent,
+    PlayerFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { PlayersService } from './players.service';
     MatSliderModule,
     NgbModule,
     NgbModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     NgbModalModule,

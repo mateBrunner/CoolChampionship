@@ -14,12 +14,14 @@ export class NewChampionshipComponent implements OnInit {
   @Input() championship: ChampionshipDetails;
 
   public id;
+  public searchPlayer: string;
+
   public newChampForm: FormGroup;
   public format = 'big-round';
 
   navigationSubscription;
   public actualChampionships: ChampionshipData[] = [];
-  public allPlayers = [];
+  public allPlayers: Player[];
   public selectedPlayers = [];
   public formats = ['big-round', 'group'];
 
@@ -135,9 +137,7 @@ class ChampionshipDetails {
 
 }
 
-class Player {
-
-  checked = false;
+export class Player {
 
   constructor(
     public id: number,

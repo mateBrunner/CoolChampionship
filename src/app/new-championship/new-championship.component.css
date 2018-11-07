@@ -78,11 +78,17 @@ mat-slider {
 .left-box-content {
   padding-right: 10px;
   overflow-y: scroll;
+  min-height: 89%;
+  max-height: 89%;
 }
 
-.right-box .make-scrollable, .left-box-content {
-  max-height: 89%;
-  min-height: 89%;
+.right-box .make-scrollable {
+  max-height: 79%;
+  min-height: 79%;
+}
+
+.right-box input {
+  margin-bottom: 8px;
 }
 
 .middle-box .make-scrollable {

@@ -72,10 +72,11 @@
 
     <div class="box right-box mat-elevation-z10">
       <h5>Select players</h5>
+      <input class="form-control" placeholder="Search player" [(ngModel)]="searchPlayer">
       <div class="make-scrollable">
-        <div *ngFor="let player of allPlayers" class="player-line">
-          <p>{{player.name}}</p>
-          <button mat-button (click)="selectPlayer(player)"><i class="material-icons">add_box</i></button>
+        <div *ngFor="let player of allPlayers | playerFilter:searchPlayer" class="player-line">
+            <p>{{player.name}}</p>
+            <button mat-button (click)="selectPlayer(player)"><i class="material-icons">add_box</i></button>
         </div>
       </div>
     </div>
