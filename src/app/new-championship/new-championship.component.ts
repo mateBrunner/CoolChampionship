@@ -101,6 +101,7 @@ export class NewChampionshipComponent implements OnInit {
   selectPlayer(player: Player) {
     this.selectedPlayers.push(player);
     this.allPlayers.splice(this.allPlayers.indexOf(player), 1);
+    this.searchPlayer = '';
     this.updateSliders();
   }
 

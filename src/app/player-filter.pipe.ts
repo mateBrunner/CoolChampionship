@@ -14,7 +14,6 @@ export class PlayerFilterPipe implements PipeTransform {
 
     return players.filter(player =>
       player.name.toLowerCase().indexOf(searchPlayer.toLowerCase()) !== -1);
-
   }
 }
 
