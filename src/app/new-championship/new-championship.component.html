@@ -1,80 +1,88 @@
 <div class="container">
-<div class="upper-box" #upperbox>
+  <div class="upper-box">
 
-
-
-
-  <div class="box left-box mat-elevation-z10">
-    <h5>Settings</h5>
-    <div class="left-box-content">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="championship.name" name="name"
-               #name="ngModel" autocomplete="off" [class.bad-value]="!name.valid">
-        <div [hidden]="name.valid"
-             class="alert alert-danger">
-          Name is required!
+    <div class="box left-box mat-elevation-z10">
+      <h5>Settings</h5>
+      <div class="left-box-content">
+        <form [formGroup]="newChampForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" [formControlName]="'newChampName'">
+          <div *ngIf="!newChampForm.get('newChampName').valid" class="alert alert-danger">
+            <span *ngIf="newChampForm.get('newChampName').errors['required']">Name is required!</span>
+            <span *ngIf="newChampForm.get('newChampName').errors['badName']">This name is in use!</span>
+          </div>
         </div>
-        <div hidden class="alert alert-danger">
-          Name is used!
+
+        <div class="form-group">
+          <label>Format</label>
+          <select class="form-control" [formControlName]="'format'" [(ngModel)]="format">
+            <option *ngFor="let format of formats">{{ format }}</option>
+          </select>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Format</label>
-        <select class="form-control" required [(ngModel)]="championship.format">
-          <option *ngFor="let format of formats" [value]="format">{{format}}</option>
-        </select>
-      </div>
+        <div [ngSwitch]="newChampForm.get('format').value">
 
-      <div [ngSwitch]="championship.format">
-        <div *ngSwitchCase="'group'" class="form-group">-</div>
-        <div *ngSwitchCase="'big-round'">
-          <div class="form-group">
-            <label>Number of matches per player: <b>{{ slider1.value }}</b></label>
-            <mat-slider #slider1 [(ngModel)]="championship.numberOfMatches" min="2" max="6" step="1" value="2" tickInterval="1" color="primary"
-            [class.bad-value]="championship.numberOfMatches>=selectedPlayers.length"></mat-slider>
-          </div>
-          <div [hidden]="championship.numberOfMatches<selectedPlayers.length" class="alert alert-danger">
-            There are too many matches!
+          <div *ngSwitchCase="'group'" class="form-group">
+            <div class="form-group">
+              <label>Number of groups: <b>{{ newChampForm.get('numberOfGroups').value }}</b></label>
+              <mat-slider [formControlName]="'numberOfGroups'" min="2" max="8" step="1" tickInterval="1" color="primary"></mat-slider>
+              <div *ngIf="!newChampForm.get('numberOfGroups').valid"
+                   class="alert alert-danger">
+                There are too few players!
+              </div>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Size of Playoff: <b>{{ slider2.value }}</b></label>
-            <mat-slider #slider2 [(ngModel)]="championship.sizeOfPlayoff" min="0" max="16" step="2" value="4" tickInterval="2" color="primary"
-            [class.bad-value]="championship.sizeOfPlayoff>selectedPlayers.length"></mat-slider>
+          <div *ngSwitchCase="'big-round'">
+            <div class="form-group">
+              <label>Number of matches per player: <b>{{ newChampForm.get('numberOfMatches').value }}</b></label>
+              <mat-slider [formControlName]="'numberOfMatches'" min="2" max="6" step="1" tickInterval="1" color="primary"></mat-slider>
+              <div *ngIf="!newChampForm.get('numberOfMatches').valid"
+                   class="alert alert-danger">
+                There are too few players!
+              </div>
+            </div>
           </div>
-          <div [hidden]="championship.sizeOfPlayoff<=selectedPlayers.length"
+
+        <div class="form-group">
+          <label>Size of Playoff: <b>{{ newChampForm.get('sizeOfPlayoff').value }}</b></label>
+          <mat-slider [formControlName]="'sizeOfPlayoff'" min="0" max="16" step="2" tickInterval="2" color="primary"></mat-slider>
+          <div *ngIf="!newChampForm.get('sizeOfPlayoff').valid"
                class="alert alert-danger">
-            Size of playoff is too big!
+            There are too few players!
           </div>
+        </div>
+
+        </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="box middle-box mat-elevation-z10">
+      <h5>Players</h5>
+      <p id="number-of-players">Number of players: <b>{{ selectedPlayers.length }}</b></p>
+      <div class="make-scrollable">
+        <div *ngFor="let player of selectedPlayers" class="player-line">
+          <p>{{player.name}}</p>
+          <button mat-button (click)="discardPlayer(player)"><i class="material-icons">clear</i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="box right-box mat-elevation-z10">
+      <h5>Select players</h5>
+      <div class="make-scrollable">
+        <div *ngFor="let player of allPlayers" class="player-line">
+          <p>{{player.name}}</p>
+          <button mat-button (click)="selectPlayer(player)"><i class="material-icons">add_box</i></button>
         </div>
       </div>
     </div>
 
   </div>
 
-  <div class="box middle-box mat-elevation-z10">
-    <h5>Players</h5>
-    <p id="number-of-players">Number of players: <b>{{ selectedPlayers.length }}</b></p>
-    <div class="make-scrollable">
-      <div *ngFor="let player of selectedPlayers" class="player-line">
-        <p>{{player.name}}</p>
-        <button mat-button (click)="discardPlayer(player)"><i class="material-icons">clear</i></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="box right-box mat-elevation-z10">
-    <h5>Select players</h5>
-    <div class="make-scrollable">
-      <div *ngFor="let player of allPlayers" class="player-line">
-        <p>{{player.name}}</p>
-        <button mat-button (click)="selectPlayer(player)"><i class="material-icons">add_box</i></button>
-      </div>
-    </div>
-  </div>
+  <button type="submit" class="btn btn-success" id="start-button" [disabled]="newChampForm.invalid">Create!</button>
 
 </div>
 
-<button mat-button #startbutton id="start-button" [disabled]="numberOfBadSettings>0" [class.is-disabled]="startbutton.disabled">Create</button>

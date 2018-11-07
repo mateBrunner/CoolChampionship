@@ -31,13 +31,14 @@
     </button>
   </div>
   <div class="modal-body">
-      <form #newChampNameForm="ngForm">
-      <div>
-        <input #name="ngModel" required type="text" name="name" [(ngModel)]="newChampName" autocomplete="off"
-               [class.is-invalid]="!isNewChampNameValid || name.invalid" class="form-control" (ngModelChange)="checkNewChampName(name.value)">
+    <form [formGroup]="newChampModalForm" (ngSubmit)="onSubmit()" class="form-group">
+      <input type="text" formControlName="newChampName" class="form-control">
+      <div *ngIf="!newChampModalForm.get('newChampName').valid" class="alert alert-danger">
+        <span *ngIf="newChampModalForm.get('newChampName').errors['required']">Name is required!</span>
+        <span *ngIf="newChampModalForm.get('newChampName').errors['badName']">This name is in use!</span>
       </div>
-      </form>
-    <button [(disabled)]="!isNewChampNameValid || name.invalid" type="submit" class="btn btn-success" (click)="createChampionship();modal.dismiss()">
+    </form>
+    <button type="submit" [disabled]="newChampModalForm.invalid" class="btn btn-success" (click)="createChampionship();modal.dismiss()">
       Create
     </button>
   </div>

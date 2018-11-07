@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 
 
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   public newChampName: string;
   public selectedId: number;
 
+  public newChampModalForm: FormGroup;
+
   constructor(private modalService: NgbModal, private route: ActivatedRoute,
               private router: Router) {
     this.actualChampionships.push(new ChampionshipData(1, 'test1'));
@@ -33,6 +35,11 @@ export class AppComponent implements OnInit {
         }
       }
     });
+
+    this.newChampModalForm = new FormGroup({
+      'newChampName': new FormControl('name', [Validators.required, this.checkNewChampName.bind(this)])
+    });
+
   }
 
   open(content) {
@@ -40,17 +47,21 @@ export class AppComponent implements OnInit {
   }
 
   createChampionship() {
-    this.actualChampionships.push(new ChampionshipData(5, this.newChampName));
+    this.actualChampionships.push(new ChampionshipData(this.actualChampionships.length + 1, this.newChampModalForm.get('newChampName').value));
     this.newChampName = '';
   }
 
-  checkNewChampName(value) {
-    this.isNewChampNameValid = true;
+  checkNewChampName(control: FormControl): {[s: string]: boolean} {
     for (const champ of this.actualChampionships) {
-      if (value === champ.name) {
-        this.isNewChampNameValid = false;
+      if (champ.name === control.value) {
+        return {'badName': true};
       }
     }
+    return null;
+  }
+
+  onSubmit() {
+    console.log('submit');
   }
 
 }

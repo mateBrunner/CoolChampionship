@@ -20,8 +20,12 @@ export class PlayersService {
       {'id': 9, 'name': 'Ilona'},
       {'id': 10, 'name': 'Jani'},
       {'id': 11, 'name': 'Karesz'},
-      {'id': 12, 'name': 'Luca'},
-      {'id': 13, 'name': 'Miki'}
+      {'id': 12, 'name': 'Lili'},
+      {'id': 13, 'name': 'Miki'},
+      {'id': 14, 'name': 'Nándi'},
+      {'id': 15, 'name': 'Ottó'},
+      {'id': 16, 'name': 'Pali'},
+      {'id': 17, 'name': 'Robi'}
     ];
   }
 
