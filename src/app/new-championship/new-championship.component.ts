@@ -2,27 +2,26 @@ import {AfterContentChecked, Component, Input, OnDestroy, OnInit} from '@angular
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {PlayersService} from '../players.service';
 import {ChampionshipData} from '../app.component';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-new-championship',
   templateUrl: './new-championship.component.html',
   styleUrls: ['./new-championship.component.css']
 })
-export class NewChampionshipComponent implements OnInit, AfterContentChecked {
+export class NewChampionshipComponent implements OnInit {
 
   @Input() championship: ChampionshipDetails;
 
-  newChampForm: FormGroup;
+  public id;
+  public newChampForm: FormGroup;
+  public format = 'big-round';
 
   navigationSubscription;
   public actualChampionships: ChampionshipData[] = [];
   public allPlayers = [];
   public selectedPlayers = [];
   public formats = ['big-round', 'group'];
-  public isChampionshipValid = false;
-  public numberOfBadSettings: number;
-
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,8 +31,6 @@ export class NewChampionshipComponent implements OnInit, AfterContentChecked {
       if (!(event instanceof NavigationEnd)) {
         return;
       }
-      console.log(event);
-      this.ngOnInit();
     });
   }
 
@@ -43,25 +40,78 @@ export class NewChampionshipComponent implements OnInit, AfterContentChecked {
     this.actualChampionships.push(new ChampionshipData(4, 'test3'));
     this.allPlayers = this.playersService.getPlayers();
 
-    this.newChampForm = new FormGroup({
-      'newName': new FormControl(null, [Validators.required])
-    });
+    this.buildNewChampForm();
 
+    this.route.params
+      .subscribe(params => {
+        this.id = params['id'];
+        this.championship = new ChampionshipDetails(4, 'hello', 'big-round', 2, 6);
+        this.newChampForm.patchValue({
+          'newChampName': this.id
+        });
+      });
   }
 
-  ngAfterContentChecked() {
-    console.log(12);
-    this.numberOfBadSettings = document.querySelectorAll('.bad-value').length;
+  buildNewChampForm() {
+    this.newChampForm = new FormGroup({
+      'newChampName': new FormControl('hello', [Validators.required, this.checkNewChampName.bind(this)]),
+      'format': new FormControl('big-round'),
+      'numberOfGroups': new FormControl(4),
+      'numberOfMatches': new FormControl(2),
+      'sizeOfPlayoff': new FormControl(4, [this.checkSizeOfPlayoff.bind(this)])
+    });
+    this.newChampForm.controls['numberOfGroups'].setValidators([this.checkNumberOfGroups.bind(this)]);
+    this.newChampForm.controls['numberOfMatches'].setValidators([this.checkNumberOfMatches.bind(this)]);
+
+    this.newChampForm.controls['format'].valueChanges.subscribe(params => { this.updateSliders(); });
+  }
+
+  checkNewChampName(control: FormControl): {[s: string]: boolean} {
+    for (const champ of this.actualChampionships) {
+      if (champ.name === control.value) {
+        return {'badName': true};
+      }
+    }
+    return null;
+  }
+
+  checkNumberOfGroups(control: FormControl): {[s: string]: boolean} {
+    if (this.selectedPlayers.length < 3 * control.value && this.newChampForm.get('format').value === 'group') {
+      return {'tooFewPlayers': true};
+    }
+    return null;
+  }
+
+  checkNumberOfMatches(control: FormControl): {[s: string]: boolean} {
+    if (this.selectedPlayers.length <= control.value && this.newChampForm.get('format').value === 'big-round') {
+      return {'tooManyMatches': true};
+    }
+    return null;
+  }
+
+  checkSizeOfPlayoff(control: FormControl): {[s: string]: boolean} {
+    if (this.selectedPlayers.length < control.value) {
+      return {'tooFewPlayers': true};
+    }
+    return null;
   }
 
   selectPlayer(player: Player) {
     this.selectedPlayers.push(player);
     this.allPlayers.splice(this.allPlayers.indexOf(player), 1);
+    this.updateSliders();
   }
 
   discardPlayer(player: Player) {
     this.allPlayers.push(player);
     this.selectedPlayers.splice(this.selectedPlayers.indexOf(player), 1);
+    this.updateSliders();
+  }
+
+  updateSliders() {
+    this.newChampForm.controls['numberOfMatches'].updateValueAndValidity();
+    this.newChampForm.controls['sizeOfPlayoff'].updateValueAndValidity();
+    this.newChampForm.controls['numberOfGroups'].updateValueAndValidity();
   }
 
   onSubmit() {

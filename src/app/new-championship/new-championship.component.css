@@ -2,7 +2,7 @@
   max-width: 100%;
   height: 100%;
   margin: 0px;
-  padding: 30px;
+  padding: 15px 30px;
 }
 
 .upper-box {
@@ -10,6 +10,7 @@
   justify-content: space-between;
   height: 500px;
 }
+
 
 .box {
   max-height: 100%;
@@ -51,6 +52,10 @@ form {
 
 mat-slider {
   width: 100%;
+}
+
+.mat-slider-thumb {
+  background-color: #3f51b5;
 }
 
 .left-box .alert {
@@ -120,8 +125,7 @@ mat-slider {
 
 #start-button {
   width: 100%;
-  margin: 20px 0px;
-  background-color: #42A948;
+  margin: 10px 0px;
 }
 
 .is-disabled {
