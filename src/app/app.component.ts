@@ -23,11 +23,6 @@ export class AppComponent implements OnInit {
               private router: Router, private championshipService: ChampionshipService) {
 
     championshipService.getActualChampionships().subscribe((champs) => this.actualChampionships = champs);
-    console.log(this.actualChampionships);
-    /*
-    this.actualChampionships.push(new ChampionshipData(1, 'test1'));
-    this.actualChampionships.push(new ChampionshipData(2, 'test2'));
-    this.actualChampionships.push(new ChampionshipData(3, 'test3'));*/
   }
 
   ngOnInit() {
@@ -50,7 +45,12 @@ export class AppComponent implements OnInit {
   }
 
   createChampionship() {
-    this.actualChampionships.push(new ChampionshipData(this.actualChampionships.length + 1, this.newChampModalForm.get('newChampName').value));
+    this.championshipService.createChampionship(this.newChampModalForm.get('newChampName').value).subscribe(
+      (champ) => {
+        this.actualChampionships.push(champ);
+        this.router.navigate(['/championship/' + champ.id]);
+      }
+    );
     this.newChampModalForm.reset();
   }
 
