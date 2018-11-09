@@ -124,8 +124,6 @@ export class NewChampionshipComponent implements OnInit {
 }
 
 
-
-
 class ChampionshipDetails {
 
   constructor(

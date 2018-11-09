@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {ChampionshipService} from './championship.service';
 
 
 @Component({
@@ -19,10 +20,14 @@ export class AppComponent implements OnInit {
   public newChampModalForm: FormGroup;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private championshipService: ChampionshipService) {
+
+    championshipService.getActualChampionships().subscribe((champs) => this.actualChampionships = champs);
+    console.log(this.actualChampionships);
+    /*
     this.actualChampionships.push(new ChampionshipData(1, 'test1'));
     this.actualChampionships.push(new ChampionshipData(2, 'test2'));
-    this.actualChampionships.push(new ChampionshipData(3, 'test3'));
+    this.actualChampionships.push(new ChampionshipData(3, 'test3'));*/
   }
 
   ngOnInit() {
@@ -74,5 +79,17 @@ export class ChampionshipData {
   getName() {
     return this.name;
   }
+
+}
+
+export class ChampionshipDetails {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public format?: string,
+    public numberOfMatches?: number,
+    public sizeOfPlayoff?: number
+  ) {}
 
 }

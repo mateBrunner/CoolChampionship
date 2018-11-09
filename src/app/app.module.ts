@@ -15,6 +15,7 @@ import { InProgressChampionshipComponent } from './in-progress-championship/in-p
 import { NewChampionshipComponent } from './new-championship/new-championship.component';
 import { PlayersService } from './players.service';
 import { PlayerFilterPipe } from './player-filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { PlayerFilterPipe } from './player-filter.pipe';
     NgbModule,
     NgbModalModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     NgbModalModule,
