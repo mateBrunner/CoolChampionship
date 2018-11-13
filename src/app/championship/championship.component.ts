@@ -11,11 +11,8 @@ import {ChampionshipService} from '../championship.service';
 })
 export class ChampionshipComponent implements OnInit {
 
-  public id: string;
   public status: string;
-  public championship: ChampionshipDetails;
   public actualChampionships: ChampionshipData[] = [];
-  public result: BasicValue;
 
   constructor(private sharedService: SharedService,
               private championshipService: ChampionshipService,
@@ -36,15 +33,3 @@ export class ChampionshipComponent implements OnInit {
 
 }
 
-class ChampionshipDetails {
-
-  constructor(
-    public id: number,
-    public name: string,
-    public status: string,
-    public format?: string,
-    public numberOfMatches?: number,
-    public sizeOfPlayoff?: number
-  ) {}
-
-}

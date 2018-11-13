@@ -16,7 +16,7 @@
 
         <div class="form-group">
           <label>Format</label>
-          <select class="form-control" [formControlName]="'format'" [(ngModel)]="format" (blur)="changeForm()">
+          <select class="form-control" [formControlName]="'format'" (blur)="changeForm()">
             <option *ngFor="let format of formats">{{ format }}</option>
           </select>
         </div>
@@ -72,7 +72,10 @@
 
     <div class="box right-box mat-elevation-z10">
       <h5>Select players</h5>
-      <input class="form-control" placeholder="Search player" [(ngModel)]="searchPlayer">
+      <div id="search_add">
+        <input class="form-control" placeholder="Search or Add player" [(ngModel)]="searchPlayer">
+        <button mat-button (click)="addPlayer()"><i class="material-icons">add_box</i></button>
+      </div>
       <div class="make-scrollable">
         <div *ngFor="let player of filteredPlayers" class="player-line">
             <p>{{player.name}}</p>

@@ -18,5 +18,8 @@ export class PlayersService {
     return this.http.get<Player[]>('http://localhost:8100/selected-players/' + id);
   }
 
+  public addPlayer(name: string): Observable<Player> {
+    return this.http.post<Player>('http://localhost:8100/add-player', {'name': name});
+  }
 
 }

@@ -7,7 +7,7 @@
       <button mat-button class="champ_button" [class.is-selected]="champ.id == selectedId" *ngFor="let champ of actualChampionships"
       routerLink="/championship/{{ champ.id }}">{{ champ.name }}</button>
     </div>
-    <button mat-button id="new_champ_button" (click)="open(new_champ_modal)">+</button>
+    <button mat-button id="new_champ_button" (click)="open(new_champ_modal)"><i class="material-icons">add_circle_outline</i></button>
   </div>
 
   <div id="navbar_right">

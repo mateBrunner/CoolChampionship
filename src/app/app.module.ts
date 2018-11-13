@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule, NgbModalModule, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatSliderModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatSliderModule, MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material';
 import { InProgressChampionshipComponent } from './in-progress-championship/in-progress-championship.component';
@@ -17,6 +17,7 @@ import { PlayersService } from './players.service';
 import { PlayerFilterPipe } from './player-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedService } from './shared.service';
+//import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SharedService } from './shared.service';
     MatFormFieldModule,
     MatTableModule,
     MatSliderModule,
+    MatSnackBarModule,
     NgbModule,
     NgbModalModule,
     ReactiveFormsModule,
@@ -48,7 +50,8 @@ import { SharedService } from './shared.service';
     NgbModalModule,
     MatInputModule,
     MatFormFieldModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ],
   schemas: [
     NO_ERRORS_SCHEMA
