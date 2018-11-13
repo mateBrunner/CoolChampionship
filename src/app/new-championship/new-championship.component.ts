@@ -1,7 +1,7 @@
 import {AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {PlayersService} from '../players.service';
-import {ChampionshipData, FilterObject} from '../app.component';
+import {ChampionshipData, ChampionshipDetails, ChampionshipSettings, Player} from '../app.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ChampionshipService} from '../championship.service';
 
@@ -22,7 +22,7 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
   public selectedPlayers = [];
   public lastValidName: string;
 
-  private _searchPlayer: string;
+  private _searchPlayer = '';
   set searchPlayer(value: string) {
     this._searchPlayer = value;
     this.filteredPlayers = this.filterPlayers();
@@ -51,7 +51,10 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.allPlayers = this.playersService.getPlayers();
+    this.playersService.getPlayers().subscribe((players) => {
+      this.allPlayers = players;
+      this.filteredPlayers = this.allPlayers;
+    });
 
     this.buildNewChampForm();
 
@@ -74,7 +77,7 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
   }
 
   subscribeForChampionshipId() {
-    this.filteredPlayers = this.allPlayers;
+    console.log('filter');
     this.route.params
       .subscribe(params => {
         this.id = +params['id'];
@@ -88,9 +91,19 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
               'sizeOfPlayoff': data.sizeOfPlayoff
             });
             this.lastValidName = this.newChampForm.controls['newChampName'].value;
+            this.getSelectedPlayers();
           }
         );
       });
+  }
+
+  getSelectedPlayers() {
+    this.playersService.getSelectedPlayers(this.id).subscribe(
+      (players) => {
+        this.selectedPlayers = players;
+        this.filteredPlayers = this.filterPlayers();
+      }
+    );
   }
 
   changeForm() {
@@ -118,10 +131,6 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
     this.newChampForm.controls['numberOfMatches'].setValidators([this.checkNumberOfMatches.bind(this)]);
     this.newChampForm.controls['format'].valueChanges.subscribe(params => { this.updateSliders(); });
 
-    /*this.newChampForm.valueChanges.subscribe(data =>
-      this.championshipService.updateSettings(this.id, data).subscribe(
-        (response) => null
-      ) );*/
   }
 
   checkNewChampName(control: FormControl): {[s: string]: boolean} {
@@ -158,12 +167,20 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
     this.selectedPlayers.push(player);
     this.searchPlayer = '';
     this.updateSliders();
+
+    this.championshipService.selectPlayer(this.id, player.id).subscribe(
+      (response) => null
+    );
   }
 
   discardPlayer(player: Player) {
     this.selectedPlayers.splice(this.selectedPlayers.indexOf(player), 1);
     this.filteredPlayers = this.filterPlayers();
     this.updateSliders();
+
+    this.championshipService.deselectPlayer(this.id, player.id).subscribe(
+      (response) => null
+    );
   }
 
   updateSliders() {
@@ -177,7 +194,7 @@ export class NewChampionshipComponent implements OnInit, OnDestroy {
   }
 
 }
-
+/*
 
 class ChampionshipDetails {
 
@@ -211,3 +228,4 @@ export class Player {
   ) {}
 
 }
+*/

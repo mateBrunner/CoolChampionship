@@ -16,7 +16,7 @@ import { NewChampionshipComponent } from './new-championship/new-championship.co
 import { PlayersService } from './players.service';
 import { PlayerFilterPipe } from './player-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
-import {SharedService} from './shared.service';
+import { SharedService } from './shared.service';
 
 @NgModule({
   declarations: [

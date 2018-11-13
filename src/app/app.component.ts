@@ -4,7 +4,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 import {ChampionshipService} from './championship.service';
 import {SharedService} from './shared.service';
-import {Player} from './new-championship/new-championship.component';
 
 
 @Component({
@@ -27,8 +26,6 @@ export class AppComponent implements OnInit {
     championshipService.getActualChampionships().subscribe((champs) => {
       this.actualChampionships = champs;
       this.sharedService.actualChampionships = this.actualChampionships;
-      console.log('component');
-      console.log(this.actualChampionships);
     });
   }
 
@@ -89,10 +86,10 @@ export class ChampionshipData {
 
 }
 
-class ChampionshipSettings {
+export class ChampionshipSettings {
 
   constructor (
-    public name: string,
+    public newChampName: string,
     public format: string,
     public numberOfGroups: number,
     public numberOfMatches: number,
@@ -138,5 +135,15 @@ export class FilterObject {
   setName(name: string) {
     this.name = name;
   }
+
+}
+
+export class Player {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public elo: number
+  ) {}
 
 }
