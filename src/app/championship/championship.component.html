@@ -1,4 +1,4 @@
 <container [ngSwitch]="status">
-  <app-new-championship *ngSwitchCase="'new'" [championship]="championship"></app-new-championship>
-  <app-in-progress-championship *ngSwitchCase="'inprogress'"></app-in-progress-championship>
+  <app-new-championship *ngSwitchCase="'NEW'" [championship]="championship" [actualChampionships]="actualChampionships"></app-new-championship>
+  <app-in-progress-championship *ngSwitchCase="'INPROGRESS'"></app-in-progress-championship>
 </container>

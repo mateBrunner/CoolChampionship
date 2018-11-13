@@ -3,6 +3,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 import {ChampionshipService} from './championship.service';
+import {SharedService} from './shared.service';
+import {Player} from './new-championship/new-championship.component';
 
 
 @Component({
@@ -16,13 +18,18 @@ export class AppComponent implements OnInit {
 
   public actualChampionships: ChampionshipData[] = [];
   public selectedId: number;
-
   public newChampModalForm: FormGroup;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute,
-              private router: Router, private championshipService: ChampionshipService) {
+              private router: Router, private championshipService: ChampionshipService,
+              private sharedService: SharedService) {
 
-    championshipService.getActualChampionships().subscribe((champs) => this.actualChampionships = champs);
+    championshipService.getActualChampionships().subscribe((champs) => {
+      this.actualChampionships = champs;
+      this.sharedService.actualChampionships = this.actualChampionships;
+      console.log('component');
+      console.log(this.actualChampionships);
+    });
   }
 
   ngOnInit() {
@@ -82,6 +89,18 @@ export class ChampionshipData {
 
 }
 
+class ChampionshipSettings {
+
+  constructor (
+    public name: string,
+    public format: string,
+    public numberOfGroups: number,
+    public numberOfMatches: number,
+    public sizeOfPlayoff: number
+  ) {}
+
+}
+
 export class ChampionshipDetails {
 
   constructor(
@@ -91,5 +110,33 @@ export class ChampionshipDetails {
     public numberOfMatches?: number,
     public sizeOfPlayoff?: number
   ) {}
+
+}
+
+export class BasicValue {
+
+  constructor(
+    public value: string
+  ) {}
+
+  getValue() {
+    return this.value;
+  }
+
+}
+
+export class FilterObject {
+  constructor(
+    public name: string,
+    public selectedPlayers: Player[]
+  ) {}
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
 
 }

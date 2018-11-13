@@ -7,7 +7,7 @@
         <form [formGroup]="newChampForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label>Name</label>
-          <input type="text" class="form-control" [formControlName]="'newChampName'">
+          <input type="text" class="form-control" [formControlName]="'newChampName'" (blur)="changeForm()">
           <div *ngIf="!newChampForm.get('newChampName').valid" class="alert alert-danger">
             <span *ngIf="newChampForm.get('newChampName').errors['required']">Name is required!</span>
             <span *ngIf="newChampForm.get('newChampName').errors['badName']">This name is in use!</span>
@@ -16,7 +16,7 @@
 
         <div class="form-group">
           <label>Format</label>
-          <select class="form-control" [formControlName]="'format'" [(ngModel)]="format">
+          <select class="form-control" [formControlName]="'format'" [(ngModel)]="format" (blur)="changeForm()">
             <option *ngFor="let format of formats">{{ format }}</option>
           </select>
         </div>
@@ -26,7 +26,7 @@
           <div *ngSwitchCase="'group'" class="form-group">
             <div class="form-group">
               <label>Number of groups: <b>{{ newChampForm.get('numberOfGroups').value }}</b></label>
-              <mat-slider [formControlName]="'numberOfGroups'" min="2" max="8" step="1" tickInterval="1" color="primary"></mat-slider>
+              <mat-slider [formControlName]="'numberOfGroups'" min="2" max="8" step="1" tickInterval="1" color="primary" (blur)="changeForm()"></mat-slider>
               <div *ngIf="!newChampForm.get('numberOfGroups').valid"
                    class="alert alert-danger">
                 There are too few players!
@@ -37,7 +37,7 @@
           <div *ngSwitchCase="'big-round'">
             <div class="form-group">
               <label>Number of matches per player: <b>{{ newChampForm.get('numberOfMatches').value }}</b></label>
-              <mat-slider [formControlName]="'numberOfMatches'" min="2" max="6" step="1" tickInterval="1" color="primary"></mat-slider>
+              <mat-slider [formControlName]="'numberOfMatches'" min="2" max="6" step="1" tickInterval="1" color="primary" (blur)="changeForm()"></mat-slider>
               <div *ngIf="!newChampForm.get('numberOfMatches').valid"
                    class="alert alert-danger">
                 There are too few players!
@@ -47,7 +47,7 @@
 
         <div class="form-group">
           <label>Size of Playoff: <b>{{ newChampForm.get('sizeOfPlayoff').value }}</b></label>
-          <mat-slider [formControlName]="'sizeOfPlayoff'" min="0" max="16" step="2" tickInterval="2" color="primary"></mat-slider>
+          <mat-slider [formControlName]="'sizeOfPlayoff'" min="0" max="16" step="2" tickInterval="2" color="primary" (blur)="changeForm()"></mat-slider>
           <div *ngIf="!newChampForm.get('sizeOfPlayoff').valid"
                class="alert alert-danger">
             There are too few players!
@@ -74,7 +74,7 @@
       <h5>Select players</h5>
       <input class="form-control" placeholder="Search player" [(ngModel)]="searchPlayer">
       <div class="make-scrollable">
-        <div *ngFor="let player of allPlayers | playerFilter:searchPlayer" class="player-line">
+        <div *ngFor="let player of filteredPlayers" class="player-line">
             <p>{{player.name}}</p>
             <button mat-button (click)="selectPlayer(player)"><i class="material-icons">add_box</i></button>
         </div>

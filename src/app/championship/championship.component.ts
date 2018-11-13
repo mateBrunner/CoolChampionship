@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {BasicValue, ChampionshipData} from '../app.component';
+import {SharedService} from '../shared.service';
+import {ChampionshipService} from '../championship.service';
 
 @Component({
   selector: 'app-championship',
@@ -11,16 +14,24 @@ export class ChampionshipComponent implements OnInit {
   public id: string;
   public status: string;
   public championship: ChampionshipDetails;
+  public actualChampionships: ChampionshipData[] = [];
+  public result: BasicValue;
 
-  constructor(private route: ActivatedRoute) {
-    this.status = 'new';
+  constructor(private sharedService: SharedService,
+              private championshipService: ChampionshipService,
+              private route: ActivatedRoute) {
+    championshipService.getActualChampionships().subscribe((champs) => {
+      this.actualChampionships = champs;
+    });
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.championship = new ChampionshipDetails(4, 'hello', 'big-round', 2, 6);
-    });
+    this.route.params
+      .subscribe(params => {
+         this.championshipService.getChampionshipStatus(params['id']).subscribe(
+           (data) => { this.status = data.value; }
+         );
+      });
   }
 
 }
@@ -30,6 +41,7 @@ class ChampionshipDetails {
   constructor(
     public id: number,
     public name: string,
+    public status: string,
     public format?: string,
     public numberOfMatches?: number,
     public sizeOfPlayoff?: number
