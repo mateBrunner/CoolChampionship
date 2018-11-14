@@ -19,7 +19,6 @@
   margin: 5px;
   padding: 10px;
   float: left;
-  /*background-color: #dfe1fb;*/
   background-color: #e8e7e5;
 }
 
@@ -95,7 +94,7 @@ mat-slider {
 
 #search_add i{
   font-size: 35px;
-  color: #42A948;
+  color: green;
 }
 
 .middle-box .make-scrollable {

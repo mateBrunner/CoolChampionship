@@ -17,7 +17,8 @@ import { PlayersService } from './players.service';
 import { PlayerFilterPipe } from './player-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedService } from './shared.service';
-//import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
+import { ResultsComponent } from './results/results.component';
+import { PlayoffComponent } from './playoff/playoff.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { SharedService } from './shared.service';
     ProfileComponent,
     InProgressChampionshipComponent,
     NewChampionshipComponent,
-    PlayerFilterPipe
+    PlayerFilterPipe,
+    ResultsComponent,
+    PlayoffComponent
   ],
   imports: [
     BrowserModule,

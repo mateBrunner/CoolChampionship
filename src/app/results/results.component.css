@@ -1,0 +1,38 @@
+button {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  right: 15px;
+  border-radius: 50%;
+  margin: 20px;
+  background-color: #3f51b5;
+  border: 2px solid #253c65;
+  box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  font-size: 30px;
+}
+
+button:hover {
+  background-color: mediumslateblue;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.8);
+  transform: translateY(-4px);
+}
+
+#matches-button {
+  top: 50px;
+}
+
+#playoff-button {
+  top: 140px;
+}
+
+#playoff-button img {
+  max-height: 50px;
+  margin-left: 4px;
+}
+
+#matches-button img {
+  max-height: 30px;
+}

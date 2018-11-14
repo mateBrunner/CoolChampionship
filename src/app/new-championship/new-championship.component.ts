@@ -92,6 +92,7 @@ export class NewChampionshipComponent implements OnInit {
               'sizeOfPlayoff': data.sizeOfPlayoff
             });
             this.lastValidName = this.newChampForm.controls['newChampName'].value;
+            this._searchPlayer = '';
             this.getSelectedPlayers();
           }
         );
@@ -103,6 +104,7 @@ export class NewChampionshipComponent implements OnInit {
       (players) => {
         this.selectedPlayers = players;
         this.filteredPlayers = this.filterPlayers();
+        this.updateSliders();
       }
     );
   }
@@ -224,7 +226,8 @@ export class NewChampionshipComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit");
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['/championship/1']));
   }
 
 }
