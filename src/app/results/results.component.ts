@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultsComponent implements OnInit {
 
-  constructor() { }
+  public champId;
+
+  constructor(private router: Router) {
+    this.champId = this.router.url.split('/')[2];
+  }
 
   ngOnInit() {
   }

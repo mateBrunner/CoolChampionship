@@ -226,8 +226,13 @@ export class NewChampionshipComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-      this.router.navigate(['/championship/1']));
+    this.championshipService.startChampionship(this.id).subscribe(
+      (response) =>
+
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+          this.router.navigate(['/championship/' + this.id ]))
+    );
+
   }
 
 }

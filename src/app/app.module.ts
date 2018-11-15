@@ -19,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedService } from './shared.service';
 import { ResultsComponent } from './results/results.component';
 import { PlayoffComponent } from './playoff/playoff.component';
+import { MatchesComponent } from './matches/matches.component';
+import { BigroundMatchesComponent } from './biground-matches/biground-matches.component';
+import { GroupMatchesComponent } from './group-matches/group-matches.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { PlayoffComponent } from './playoff/playoff.component';
     NewChampionshipComponent,
     PlayerFilterPipe,
     ResultsComponent,
-    PlayoffComponent
+    PlayoffComponent,
+    MatchesComponent,
+    BigroundMatchesComponent,
+    GroupMatchesComponent
   ],
   imports: [
     BrowserModule,

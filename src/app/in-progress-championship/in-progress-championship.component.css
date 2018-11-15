@@ -2,10 +2,10 @@ button {
   width: 60px;
   height: 60px;
   position: fixed;
-  right: 15px;
+  right: 0px;
   border-radius: 50%;
   margin: 20px;
-  background-color: #3f51b5;
+  background-color: #253c65;
   border: 2px solid #253c65;
   box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease 0s;
@@ -15,19 +15,28 @@ button {
 }
 
 button:hover {
+  width: 66px;
+  height: 66px;
   background-color: mediumslateblue;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.8);
   transform: translateY(-4px);
 }
 
-#results-button {
+#matches-button {
   top: 50px;
 }
 
-#playoff-button {
+#results-button {
   top: 140px;
 }
 
+#playoff-button {
+  top: 230px;
+}
+
+#matches-button img{
+  max-height: 30px;
+}
 
 #results-button img {
   max-height: 40px;
@@ -37,3 +46,4 @@ button:hover {
   max-height: 50px;
   margin-left: 4px;
 }
+

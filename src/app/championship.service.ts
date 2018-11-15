@@ -44,6 +44,10 @@ export class ChampionshipService {
     return this.http.post<ChampionshipData>('http://localhost:8100/championship', {'name': name});
   }
 
+  public startChampionship(champId: number): Observable<BasicValue> {
+    return this.http.get<BasicValue>('http://localhost:8100/start/' + champId);
+  }
+
 }
 
 class ChampPlayerObject{

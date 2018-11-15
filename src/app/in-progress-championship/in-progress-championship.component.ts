@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-in-progress-championship',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InProgressChampionshipComponent implements OnInit {
 
-  constructor() { }
+  public champId;
+
+  constructor(public router: Router) {
+
+    this.champId = router.url.split('/')[2];
+
+  }
 
   ngOnInit() {
   }

@@ -40,6 +40,8 @@ mat-toolbar {
   font-size: 25px;
   padding: 0;
   margin: 5px;
+  position: relative;
+  top: -1px;
 }
 
 #new_champ_button i {
