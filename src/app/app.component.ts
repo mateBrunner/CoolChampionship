@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {ChampionshipService} from './championship.service';
+import {SharedService} from './shared.service';
 
 
 @Component({
@@ -15,14 +17,16 @@ export class AppComponent implements OnInit {
 
   public actualChampionships: ChampionshipData[] = [];
   public selectedId: number;
-
   public newChampModalForm: FormGroup;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute,
-              private router: Router) {
-    this.actualChampionships.push(new ChampionshipData(1, 'test1'));
-    this.actualChampionships.push(new ChampionshipData(2, 'test2'));
-    this.actualChampionships.push(new ChampionshipData(3, 'test3'));
+              private router: Router, private championshipService: ChampionshipService,
+              private sharedService: SharedService) {
+
+    championshipService.getActualChampionships().subscribe((champs) => {
+      this.actualChampionships = champs;
+      this.sharedService.actualChampionships = this.actualChampionships;
+    });
   }
 
   ngOnInit() {
@@ -45,7 +49,12 @@ export class AppComponent implements OnInit {
   }
 
   createChampionship() {
-    this.actualChampionships.push(new ChampionshipData(this.actualChampionships.length + 1, this.newChampModalForm.get('newChampName').value));
+    this.championshipService.createChampionship(this.newChampModalForm.get('newChampName').value).subscribe(
+      (champ) => {
+        this.actualChampionships.push(champ);
+        this.router.navigate(['/championship/' + champ.id]);
+      }
+    );
     this.newChampModalForm.reset();
   }
 
@@ -74,5 +83,67 @@ export class ChampionshipData {
   getName() {
     return this.name;
   }
+
+}
+
+export class ChampionshipSettings {
+
+  constructor (
+    public newChampName: string,
+    public format: string,
+    public numberOfGroups: number,
+    public numberOfMatches: number,
+    public sizeOfPlayoff: number
+  ) {}
+
+}
+
+export class ChampionshipDetails {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public format?: string,
+    public numberOfMatches?: number,
+    public sizeOfPlayoff?: number
+  ) {}
+
+}
+
+export class BasicValue {
+
+  constructor(
+    public value: string
+  ) {}
+
+  getValue() {
+    return this.value;
+  }
+
+}
+
+export class FilterObject {
+  constructor(
+    public name: string,
+    public selectedPlayers: Player[]
+  ) {}
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
+
+}
+
+export class Player {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public elo: number
+  ) {}
 
 }

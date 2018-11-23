@@ -19,7 +19,7 @@
   margin: 5px;
   padding: 10px;
   float: left;
-  background-color: #dfe1fb;
+  background-color: #e8e7e5;
 }
 
 h5 {
@@ -87,8 +87,14 @@ mat-slider {
   min-height: 79%;
 }
 
-.right-box input {
+.right-box #search_add {
+  display: flex;
   margin-bottom: 8px;
+}
+
+#search_add i{
+  font-size: 35px;
+  color: green;
 }
 
 .middle-box .make-scrollable {
@@ -132,10 +138,12 @@ mat-slider {
 #start-button {
   width: 100%;
   margin: 10px 0px;
+  background-color: darkgreen;
 }
 
-.is-disabled {
-  background-color: dimgray !important;
+#start-button[disabled] {
+  background-color: dimgray;
+  border: 0px;
 }
 
 

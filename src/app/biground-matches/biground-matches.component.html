@@ -1,0 +1,19 @@
+<div class="container">
+
+  <div class="box mat-elevation-z10">
+
+    <div *ngFor="let i of playerCount">
+
+      <div>{{players[i].name}}</div>
+
+      <div *ngFor="let opponent of opponentTable[i].opponents">
+
+        <div>{{ opponent.name }}</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

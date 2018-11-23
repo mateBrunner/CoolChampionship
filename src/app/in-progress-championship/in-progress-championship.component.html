@@ -1,3 +1,6 @@
-<p>
-  in-progress-championship works!
-</p>
+<button id="matches-button" mat-icon-button routerLink="/championship/{{ champId }}/matches" title="matches"><img src="assets/matches_1.png"></button>
+<button id="results-button" mat-icon-button routerLink="/championship/{{ champId }}/results" title="results"><img src="assets/results_1.png"></button>
+<button id="playoff-button" mat-icon-button routerLink="/championship/{{ champId }}/playoff" title="playoff"><img src="assets/playoff_1.png"></button>
+
+<router-outlet></router-outlet>
+

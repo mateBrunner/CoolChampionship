@@ -1,32 +1,25 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BasicValue, Player} from './app.component';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPlayers() {
-    return [
-      {'id': 1, 'name': 'Aladár'},
-      {'id': 2, 'name': 'Béla'},
-      {'id': 3, 'name': 'Cecil'},
-      {'id': 4, 'name': 'Dezső'},
-      {'id': 5, 'name': 'Elemér'},
-      {'id': 6, 'name': 'Feri'},
-      {'id': 7, 'name': 'Gábor'},
-      {'id': 8, 'name': 'Hedvig'},
-      {'id': 9, 'name': 'Ilona'},
-      {'id': 10, 'name': 'Jani'},
-      {'id': 11, 'name': 'Karesz'},
-      {'id': 12, 'name': 'Lili'},
-      {'id': 13, 'name': 'Miki'},
-      {'id': 14, 'name': 'Nándi'},
-      {'id': 15, 'name': 'Ottó'},
-      {'id': 16, 'name': 'Pali'},
-      {'id': 17, 'name': 'Robi'}
-    ];
+  public getPlayers(): Observable<Player[]> {
+    return this.http.get<Player[]>('http://localhost:8100/players');
+  }
+
+  public getSelectedPlayers(id: number): Observable<Player[]> {
+    return this.http.get<Player[]>('http://localhost:8100/selected-players/' + id);
+  }
+
+  public addPlayer(name: string): Observable<Player> {
+    return this.http.post<Player>('http://localhost:8100/add-player', {'name': name});
   }
 
 }

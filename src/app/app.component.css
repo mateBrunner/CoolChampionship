@@ -17,6 +17,7 @@ mat-toolbar {
   -moz-box-shadow: 0 8px 6px -6px black;
   box-shadow: 0 8px 6px -6px black;
   z-index: 5;
+  background-color: #253c65 !important;
 }
 
 .placeholder {
@@ -35,11 +36,20 @@ mat-toolbar {
   height: 30px;
   line-height: 30px;
   min-width: 30px !important;
-  border: 2px solid white;
   border-radius: 100%;
   font-size: 25px;
   padding: 0;
   margin: 5px;
+  position: relative;
+  top: -1px;
+}
+
+#new_champ_button i {
+  font-size: 33px;
+}
+
+#new_champ_button i:hover {
+  color: #dfe1fb;
 }
 
 .champ_button {
